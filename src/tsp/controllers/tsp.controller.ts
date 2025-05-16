@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { TspService } from '../tsp.service';
 import { TspSolveResponseDto } from '../dtos/response/solve.response.dto';
 import { TspSolveRequestDto } from '../dtos/request/solve.request.dto';
@@ -11,7 +11,13 @@ import { TspGenerateCitiesRequestDto } from '../dtos/request/generate-cities.req
  */
 @Controller('tsp')
 export class TspController {
-    constructor(private readonly tspService: TspService) {}
+    constructor(private readonly tspService: TspService) {
+    }
+
+    @Get('health')
+    health() {
+        return this.tspService.health();
+    }
 
     @Post('solve')
     solve(@Body() payload: TspSolveRequestDto): TspSolveResponseDto {
@@ -22,6 +28,8 @@ export class TspController {
     generateCities(
         @Body() payload: TspGenerateCitiesRequestDto,
     ): TspGenerateCitiesResponseDto {
+        console.log(payload);
         return this.tspService.generateCities(payload);
     }
+
 }

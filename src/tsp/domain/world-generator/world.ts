@@ -34,8 +34,8 @@ export class World {
      */
     addCity(city: City): boolean {
         const isOutOfBounds =
-            city.coordinates.x < 0 ||
-            city.coordinates.y < 0 ||
+            city.coordinates.x < 1 ||
+            city.coordinates.y < 1 ||
             city.coordinates.x > this.bounds.x ||
             city.coordinates.y > this.bounds.y;
 
@@ -63,7 +63,7 @@ class OutOfBoundsError extends Error {
         super(
             `Attempted to add city ${cityName} at coordinates ` +
                 `(${coordinates.x}, ${coordinates.y}) which are out of world ` +
-                `bounds. Bounds are X: 0 to ${bounds.x}, Y: 0 to ${bounds.y}.`,
+                `bounds. Bounds are X: 1 to ${bounds.x}, Y: 1 to ${bounds.y}.`,
         );
     }
 }
