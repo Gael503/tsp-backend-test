@@ -27,14 +27,12 @@ export class TspService {
         // - Implement TSP solver
         try {
             const { cities, distances } = payload;
-            console.log(cities, distances);
             this.TspSolverWthD = new TspSolverWithDistances(cities, distances);
             const response = this.TspSolverWthD.solve();
             return response;
-        } catch (error:any) {
-            console.log("Error ocurred: ", error);
+        } catch (error: any) {
             throw new NotImplementedException(
-                `${this.solve.name} method not implemented in ${TspService.name}`,
+                `Error Ocurred [TspService/Solve]: ${error}`,
             );
         }
     }
@@ -54,13 +52,31 @@ export class TspService {
             const { cities } = worldGenerator.getWorld();
             this.tspSolver = new TspSolver(cities);
             const response = this.tspSolver.getAllDistances();
-            // const response = this.tspSolver.xd();
-
             return response;
         } catch (error: any) {
-            console.log("Error ocurred: ", error);
             throw new NotImplementedException(
-                `${this.generateCities.name} method not implemented in ${TspService.name}`,
+                `Error Ocurred [TspService/generateCities]: ${error}`,
+            );
+        }
+    }
+
+    optionalEnd(
+        payload: TspGenerateCitiesRequestDto,
+    ): TspGenerateCitiesResponseDto {
+        try {
+            const worldGenerator = new WorldGenerator(payload.numOfCities, {
+                x: payload.worldBoundX,
+                y: payload.worldBoundY,
+            });
+            //genera las ciudades
+            worldGenerator.generateCities();
+            const { cities } = worldGenerator.getWorld();
+            this.tspSolver = new TspSolver(cities);
+            const response = this.tspSolver.sortCities();
+            return response;
+        } catch (error: any) {
+            throw new NotImplementedException(
+                `Error Ocurred [TspService/generateCities]: ${error}`,
             );
         }
     }

@@ -28,7 +28,7 @@ class Calculator {
         return entry.distance;
     }
 
-    //version anterior de getDistances
+    //version anterior de getDistances que complementa sortCities
     oldGetDistances(cityA: City, cityB: City): TspSolveResponseDto {
         const x = cityB.coordinates.x - cityA.coordinates.x;
         const y = cityB.coordinates.y - cityA.coordinates.y;
@@ -60,8 +60,9 @@ export class TspSolverWithDistances {
         this.route.push(currentCity);
 
         while (citiesToVisit.length > 0) {
-            //para controlar el if
+            //para guardar la ciudad con distancia minima
             let nextCitie: string | null = null;
+            //para encontrar la minima distancia
             let minDistance = Infinity;
 
             for (const city of citiesToVisit) {
@@ -75,16 +76,17 @@ export class TspSolverWithDistances {
                     nextCitie = city;
                 }
             }
-            //
+            // guardamos la ciudad con la distancia minima
             if (nextCitie) {
                 this.route.push(nextCitie);
                 this.totalDistance += minDistance;
                 currentCity = nextCitie;
+                //eliminamos la ciudad actual de las ciudades por visitar
                 citiesToVisit.splice(citiesToVisit.indexOf(nextCitie), 1);
             }
         }
 
-        // regresar al inicio
+        // una vez se cumple el while decimos que la "ciudad actual" sera el punto para regresar a la primera ciudad
         this.totalDistance += this.calculator.getDistanceWithRoutes(
             this.distances,
             currentCity,
@@ -114,7 +116,7 @@ export class TspSolver {
         const cities = this.cities.map((i) => i.name);
         for (let i in this.cities) {
             for (let j in this.cities) {
-                //evitamos que calcule la ruta del punto de partida al punto de partida xd
+                //evitamos que calcule la ruta del punto de partida al punto de partida
                 if (i == j) continue;
                 const distance = this.calculator.getDistances(
                     this.cities[i],
@@ -129,11 +131,18 @@ export class TspSolver {
         }
         return { cities, distances: this.distances };
     }
-    //esta funcion hace su chamba pero no funciona para las pruebas
-    xd(): TspSolveRequestDto {
+
+    //esta era una funcion en la que tabaje originalmente
+    //pero debido a que no cumplia con los test la deje de un lado
+    //objetivo original: en cuanto generara las ciudades aleatorias buscar la ruta mas optima y retornarla
+    sortCities(): TspSolveRequestDto {
         let currentCity: City = this.cities[0];
+        const route: TspSolveResponseDto[] = [];
+        //para mostrar solamente
+        const rutas = [];
 
         while (this.citiesToVisit.length > 0) {
+            //lista para guardar todas las rutas posibles del elemento actual con el resto de ciudades no visitadas
             let candidates = [];
             //se encarga de llenar todas las distancias entre la ciudad actual y sus posibilidades
             for (let i = 0; i < this.citiesToVisit.length; i++) {
@@ -156,6 +165,8 @@ export class TspSolver {
             const foundCity = this.citiesToVisit[index];
             currentCity = foundCity;
             //guardamos la mejor ruta
+            route.push(candidates[0]);
+
             this.distances.push({
                 from: candidates[0].route[0],
                 to: candidates[0].route[1],
@@ -169,6 +180,7 @@ export class TspSolver {
             this.cities[0],
             currentCity,
         );
+
         this.distances.push({
             from: lastStop.route[0],
             to: lastStop.route[1],
@@ -176,6 +188,15 @@ export class TspSolver {
         });
         //hacemos una lista con todas las ciudades
         const cities = this.cities.map((i) => i.name);
+        let totalDistance: number = 0;
+        for (const r of route) {
+            rutas.push(r.route);
+            totalDistance += r.totalDistance;
+        }
+
+        console.log('Resultado Desglozado:  ', route);
+        console.log('Ruta final:', rutas.map((r) => r.join(' → ')).join(' | '), "Distancia total:", totalDistance);
         return { cities, distances: this.distances };
     }
+
 }

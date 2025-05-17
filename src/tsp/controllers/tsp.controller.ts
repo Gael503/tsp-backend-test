@@ -31,4 +31,11 @@ export class TspController {
         return this.tspService.generateCities(payload);
     }
 
+    @Post('optional')
+    optionalEnd(
+        @Body() payload: TspGenerateCitiesRequestDto,
+    ): TspGenerateCitiesResponseDto {
+        return this.tspService.optionalEnd(payload);
+    }
+
 }
