@@ -20,11 +20,8 @@ export class TspService {
     health() {
         return 'Backend working!';
     }
-    //debe calcular la ruta mas corta en base a un set de ciudades
+    //recived a cities array with her distances, then return the best route
     solve(payload: TspSolveRequestDto): TspSolveResponseDto {
-        // void payload;
-        // To do
-        // - Implement TSP solver
         try {
             const { cities, distances } = payload;
             this.TspSolverWthD = new TspSolverWithDistances(cities, distances);
@@ -36,18 +33,15 @@ export class TspService {
             );
         }
     }
-    //genera las ciudades, y calcula sus distancias
+    //generate the cities with her distances
     generateCities(
         payload: TspGenerateCitiesRequestDto,
     ): TspGenerateCitiesResponseDto {
         try {
-            // To do
-            // - Calculate distance between cities
             const worldGenerator = new WorldGenerator(payload.numOfCities, {
                 x: payload.worldBoundX,
                 y: payload.worldBoundY,
             });
-            //genera las ciudades
             worldGenerator.generateCities();
             const { cities } = worldGenerator.getWorld();
             this.tspSolver = new TspSolver(cities);
@@ -59,7 +53,7 @@ export class TspService {
             );
         }
     }
-
+    //endpoint Optional to test function sort a random cities array with the best route
     optionalEnd(
         payload: TspGenerateCitiesRequestDto,
     ): TspGenerateCitiesResponseDto {
@@ -68,7 +62,6 @@ export class TspService {
                 x: payload.worldBoundX,
                 y: payload.worldBoundY,
             });
-            //genera las ciudades
             worldGenerator.generateCities();
             const { cities } = worldGenerator.getWorld();
             this.tspSolver = new TspSolver(cities);
