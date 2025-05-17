@@ -28,7 +28,6 @@ export class TspController {
     generateCities(
         @Body() payload: TspGenerateCitiesRequestDto,
     ): TspGenerateCitiesResponseDto {
-        console.log(payload);
         return this.tspService.generateCities(payload);
     }
 

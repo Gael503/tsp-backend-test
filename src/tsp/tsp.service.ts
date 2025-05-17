@@ -4,7 +4,10 @@ import { TspSolveRequestDto } from './dtos/request/solve.request.dto';
 import { TspGenerateCitiesResponseDto } from './dtos/response/generate-cities.response.dto';
 import { WorldGenerator } from './domain/world-generator/world-generator';
 import { TspGenerateCitiesRequestDto } from './dtos/request/generate-cities.request.dto';
-import { TspSolver } from './domain/tsp-solver/tsp-solver';
+import {
+    TspSolver,
+    TspSolverWithDistances,
+} from './domain/tsp-solver/tsp-solver';
 /**
  * The TspService class is a NestJS service responsible for implementing the
  * core logic of solving the Traveling Salesman Problem (TSP) and generating
@@ -12,43 +15,52 @@ import { TspSolver } from './domain/tsp-solver/tsp-solver';
  */
 @Injectable()
 export class TspService {
-    health(){
-        console.log("Se activo health");
-        return "Todo okay"
+    tspSolver: TspSolver;
+    TspSolverWthD: TspSolverWithDistances;
+    health() {
+        return 'Backend working!';
     }
     //debe calcular la ruta mas corta en base a un set de ciudades
     solve(payload: TspSolveRequestDto): TspSolveResponseDto {
-        void payload;
-        throw new NotImplementedException(
-            `${this.solve.name} method not implemented in ${TspService.name}`,
-        );
-
+        // void payload;
         // To do
         // - Implement TSP solver
+        try {
+            const { cities, distances } = payload;
+            console.log(cities, distances);
+            this.TspSolverWthD = new TspSolverWithDistances(cities, distances);
+            const response = this.TspSolverWthD.solve();
+            return response;
+        } catch (error:any) {
+            console.log("Error ocurred: ", error);
+            throw new NotImplementedException(
+                `${this.solve.name} method not implemented in ${TspService.name}`,
+            );
+        }
     }
     //genera las ciudades, y calcula sus distancias
     generateCities(
         payload: TspGenerateCitiesRequestDto,
     ): TspGenerateCitiesResponseDto {
-        const worldGenerator = new WorldGenerator(payload.numOfCities, {
-            x: payload.worldBoundX,
-            y: payload.worldBoundY,
-        });
-        //genera las ciudades
-        worldGenerator.generateCities();
+        try {
+            // To do
+            // - Calculate distance between cities
+            const worldGenerator = new WorldGenerator(payload.numOfCities, {
+                x: payload.worldBoundX,
+                y: payload.worldBoundY,
+            });
+            //genera las ciudades
+            worldGenerator.generateCities();
+            const { cities } = worldGenerator.getWorld();
+            this.tspSolver = new TspSolver(cities);
+            const response = this.tspSolver.solve();
 
-        const { cities } = worldGenerator.getWorld();
-        //nuestra clase para resolver
-        const tspSolver = new TspSolver();
-
-        //le enviamos las ciudades
-        const response = tspSolver.sortList(cities)
-        console.log(response);
-        // To do
-        // - Calculate distance between cities
-        return {cities: ["XD"], distances: []}
-        // throw new NotImplementedException(
-        //     `${this.generateCities.name} method not implemented in ${TspService.name}`,
-        // );
+            return response;
+        } catch (error: any) {
+            console.log("Error ocurred: ", error);
+            throw new NotImplementedException(
+                `${this.generateCities.name} method not implemented in ${TspService.name}`,
+            );
+        }
     }
 }
