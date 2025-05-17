@@ -26,7 +26,7 @@ export class TspDistanceRequestDto {
  * Defines the request structure for solving the TSP.
  */
 export class TspSolveRequestDto {
-    @MinLength(2, { each: true })
+    @MinLength(1, { each: true })
     cities: string[];
 
     @ValidateNested()

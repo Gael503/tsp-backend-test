@@ -5,7 +5,6 @@ import {
     TspDistanceRequestDto,
 } from 'src/tsp/dtos/request/solve.request.dto';
 import { TspDistanceResponseDto } from 'src/tsp/dtos/response/generate-cities.response.dto';
-//calcularDistancias
 class Calculator {
     constructor() {}
     //formula
@@ -38,7 +37,7 @@ class Calculator {
         };
     }
 }
-//Resuelve con distancias ya dadas
+
 export class TspSolverWithDistances {
     route: string[] = [];
     totalDistance = 0;
