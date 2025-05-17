@@ -34,7 +34,7 @@ Después de corregirlos, me enfoqué en hacer que los endpoints funcionaran. Tuv
 - **Calculator**: Clase que se encarga de calcular distancias entre ciudades.
   - `getDistances`: Aplica la fórmula euclidiana:  
     \\[
-    d = \\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
+    d = √((x₂ - x₁)² + (y₂ - y₁)²)
     \\]
   - `getDistanceWithRoute`: Busca en un arreglo de distancias la que conecta dos ciudades específicas.
   - `oldGetDistances`: Función usada principalmente en el método `sortCities` para probar rutas y registrar sus costos.

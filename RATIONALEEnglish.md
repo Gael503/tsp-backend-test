@@ -34,7 +34,7 @@ After correcting them, I focused on getting the endpoints to work. I had to modi
 - Calculator**: Class in charge of calculating distances between cities.
   - getDistances`: Applies the Euclidean formula:  
     \\[
-    d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
+    d = √((x₂ - x₁)² + (y₂ - y₁)²)
     \\]
   - `getDistanceWithRoute`: Searches an array of distances for the distance connecting two specific cities.
   - `oldGetDistances`: Function used mainly in the `sortCities` method to test routes and record their costs.
