@@ -53,7 +53,8 @@ export class TspService {
             worldGenerator.generateCities();
             const { cities } = worldGenerator.getWorld();
             this.tspSolver = new TspSolver(cities);
-            const response = this.tspSolver.solve();
+            const response = this.tspSolver.getAllDistances();
+            // const response = this.tspSolver.xd();
 
             return response;
         } catch (error: any) {
