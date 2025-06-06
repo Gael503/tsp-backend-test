@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "24c84c81-2bf1-4393-8240-8f44d9b1ffa7",
+		"name": "Traveling Salesman Problem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37711005"
+	},
+	"item": [
+		{
+			"name": "health",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/tsp/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"tsp",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "solve",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cities\": [\r\n        \"A\",\r\n        \"B\",\r\n        \"C\",\r\n        \"D\",\r\n        \"E\"\r\n    ],\r\n    \"distances\": [\r\n        {\r\n            \"from\": \"A\",\r\n            \"to\": \"B\",\r\n            \"distance\": 37\r\n        },\r\n        {\r\n            \"from\": \"A\",\r\n            \"to\": \"C\",\r\n            \"distance\": 26\r\n        },\r\n        {\r\n            \"from\": \"A\",\r\n            \"to\": \"D\",\r\n            \"distance\": 33\r\n        },\r\n        {\r\n            \"from\": \"A\",\r\n            \"to\": \"E\",\r\n            \"distance\": 21\r\n        },\r\n        {\r\n            \"from\": \"B\",\r\n            \"to\": \"A\",\r\n            \"distance\": 37\r\n        },\r\n        {\r\n            \"from\": \"B\",\r\n            \"to\": \"C\",\r\n            \"distance\": 12\r\n        },\r\n        {\r\n            \"from\": \"B\",\r\n            \"to\": \"D\",\r\n            \"distance\": 23\r\n        },\r\n        {\r\n            \"from\": \"B\",\r\n            \"to\": \"E\",\r\n            \"distance\": 17\r\n        },\r\n        {\r\n            \"from\": \"C\",\r\n            \"to\": \"A\",\r\n            \"distance\": 26\r\n        },\r\n        {\r\n            \"from\": \"C\",\r\n            \"to\": \"B\",\r\n            \"distance\": 12\r\n        },\r\n        {\r\n            \"from\": \"C\",\r\n            \"to\": \"D\",\r\n            \"distance\": 25\r\n        },\r\n        {\r\n            \"from\": \"C\",\r\n            \"to\": \"E\",\r\n            \"distance\": 6\r\n        },\r\n        {\r\n            \"from\": \"D\",\r\n            \"to\": \"A\",\r\n            \"distance\": 33\r\n        },\r\n        {\r\n            \"from\": \"D\",\r\n            \"to\": \"B\",\r\n            \"distance\": 23\r\n        },\r\n        {\r\n            \"from\": \"D\",\r\n            \"to\": \"C\",\r\n            \"distance\": 25\r\n        },\r\n        {\r\n            \"from\": \"D\",\r\n            \"to\": \"E\",\r\n            \"distance\": 25\r\n        },\r\n        {\r\n            \"from\": \"E\",\r\n            \"to\": \"A\",\r\n            \"distance\": 21\r\n        },\r\n        {\r\n            \"from\": \"E\",\r\n            \"to\": \"B\",\r\n            \"distance\": 17\r\n        },\r\n        {\r\n            \"from\": \"E\",\r\n            \"to\": \"C\",\r\n            \"distance\": 6\r\n        },\r\n        {\r\n            \"from\": \"E\",\r\n            \"to\": \"D\",\r\n            \"distance\": 25\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/tsp/solve",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"tsp",
+						"solve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generate-cities",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"numOfCities\": 5,\r\n    \"worldBoundX\": 50,\r\n    \"worldBoundY\": 50\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/tsp/generate-cities",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"tsp",
+						"generate-cities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "optional",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"numOfCities\": 5,\r\n    \"worldBoundX\": 50,\r\n    \"worldBoundY\": 50\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/tsp/optional",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"tsp",
+						"optional"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
